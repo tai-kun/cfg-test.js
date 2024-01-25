@@ -1,0 +1,56 @@
+{
+  "name": "cfg-test",
+  "version": "0.0.0",
+  "description": "In-source Testing",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src",
+    "*.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "default": "./src/auto.cjs"
+    },
+    "./api": {
+      "default": "./src/api.cjs"
+    },
+    "./define": {
+      "types": "./src/define.d.ts",
+      "default": "./src/define.cjs"
+    },
+    "./manual": {
+      "default": "./src/manual.cjs"
+    },
+    "./globals": {
+      "types": "./globals.d.ts"
+    }
+  },
+  "optionalDependencies": {
+    "@swc-node/register": "*",
+    "ts-node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tai-kun/cfg-test.js"
+  },
+  "author": {
+    "name": "tai-kun",
+    "url": "https://github.com/tai-kun"
+  },
+  "scripts": {
+    "ci": "bash scripts/ci.sh",
+    "test": "bash scripts/test.sh"
+  },
+  "volta": {
+    "node": "18.17.1"
+  },
+  "keywords": [
+    "cfg",
+    "test",
+    "testing",
+    "test-runner"
+  ]
+}

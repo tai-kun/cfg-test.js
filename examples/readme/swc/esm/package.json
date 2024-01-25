@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "scripts": {
+    "test:type": "tsc --noEmit",
+    "test:unit:js": "exit 0",
+    "test:unit:ts": "node --import cfg-test --test=./src/**/*.ts"
+  },
+  "devDependencies": {
+    "@swc-node/register": "latest",
+    "@types/node": "latest",
+    "cfg-test": "file:../../../..",
+    "typescript": "latest"
+  }
+}
