@@ -1,6 +1,7 @@
 const { resolve } = require("node:path");
 const { pathToFileURL } = require("node:url");
 const { createRequire, register: imp } = require("node:module");
+const { testEnv } = require("./define.cjs");
 
 const req = createRequire(pathToFileURL("./"));
 
@@ -36,8 +37,8 @@ exports.register = function register(setup = {}) {
 
     // env
 
+    Object.assign(process.env, testEnv);
     process.env.NODE_ENV = "test";
-    process.env.CFG_TEST = "true";
     process.env.CFG_TEST_FILE = resolve(argv[fileIndex]);
     process.env.CFG_TEST_WATCH = String(/,--watch,/.test(optionList));
 
