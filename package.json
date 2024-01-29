@@ -42,7 +42,8 @@
   },
   "scripts": {
     "ci": "bash scripts/ci.sh",
-    "test": "bash scripts/test.sh"
+    "test": "bash scripts/test.sh",
+    "update": "bash scripts/update.sh"
   },
   "volta": {
     "node": "18.17.1"
