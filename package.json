@@ -29,7 +29,7 @@
     }
   },
   "optionalDependencies": {
-    "@swc-node/register": "*",
+    "@swc-node/register": ">=1.6.5",
     "ts-node": "*"
   },
   "repository": {
