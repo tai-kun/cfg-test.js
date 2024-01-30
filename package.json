@@ -50,8 +50,9 @@
   },
   "keywords": [
     "cfg",
+    "cfg-test",
     "test",
-    "testing",
-    "test-runner"
+    "test-runner",
+    "typescript"
   ]
 }
