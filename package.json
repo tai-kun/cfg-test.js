@@ -4,7 +4,7 @@
   "description": "In-source testing using Node.js Test Runner",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.19.0"
   },
   "files": [
     "src",
@@ -46,7 +46,7 @@
     "update": "bash scripts/update.sh"
   },
   "volta": {
-    "node": "18.17.1"
+    "node": "18.19.0"
   },
   "keywords": [
     "cfg",
