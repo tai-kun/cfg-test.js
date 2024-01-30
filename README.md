@@ -1,6 +1,6 @@
 # cfg-test.js
 
-In-source testing with the [Node.js Test Runner](https://nodejs.org/api/test.html)
+In-source testing using [Node.js Test Runner](https://nodejs.org/api/test.html)
 
 [![npm latest package](https://img.shields.io/npm/v/cfg-test/latest.svg)](https://www.npmjs.com/package/cfg-test)
 [![Quality](https://github.com/tai-kun/cfg-test.js/actions/workflows/quality.yaml/badge.svg)](https://github.com/tai-kun/cfg-test.js/actions/workflows/quality.yaml)
@@ -24,6 +24,7 @@ Node.js `>=18.19.0`
 ```bash
 npm i -D cfg-test \
   @swc-node/register \
+  @types/node \
   typescript
 ```
 
@@ -100,36 +101,40 @@ npm test
 
 |Node.js|Transpiler|Type    |Link                                                      |
 |:------|:---------|:-------|:---------------------------------------------------------|
-|>=18.19|       swc|     ESM|[examples/node18/swc/esm](examples/node18/swc/esm)        |
+|>=18.19|swc       |ESM     |[examples/node18/swc/esm](examples/node18/swc/esm)        |
 |       |          |CommonJS|[examples/node18/swc/cjs](examples/node18/swc/cjs)        |
-|       |   ts-node|     ESM|[examples/node18/ts-node/esm](examples/node18/ts-node/esm)|
+|       |ts-node   |ESM     |[examples/node18/ts-node/esm](examples/node18/ts-node/esm)|
 |       |          |CommonJS|[examples/node18/ts-node/cjs](examples/node18/ts-node/cjs)|
-|>=20   |       swc|     ESM|[examples/node20/swc/esm](examples/node20/swc/esm)        |
+|>=20   |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
 |       |          |CommonJS|[examples/node20/swc/cjs](examples/node20/swc/cjs)        |
-|       |   ts-node|     ESM|[examples/node20/ts-node/esm](examples/node20/ts-node/esm)|
+|       |ts-node   |ESM     |[examples/node20/ts-node/esm](examples/node20/ts-node/esm)|
 |       |          |CommonJS|[examples/node20/ts-node/cjs](examples/node20/ts-node/cjs)|
 
 ## Production Build
 
 ```ts
 import {
-  // CFG_TEST: "true"
+  // { CFG_TEST: "true" }
   testEnv,
 
-  // CFG_TEST: "false"
-  // CFG_TEST_URL: undefined
-  // CFG_TEST_FILE: undefined
-  // CFG_TEST_WATCH: "false"
+  // {
+  //   CFG_TEST: "false",
+  //   CFG_TEST_URL: undefined,
+  //   CFG_TEST_FILE: undefined,
+  //   CFG_TEST_WATCH: "false",
+  // }
   buildEnv,
 
-  // "process.env.CFG_TEST": "\"true\""
+  // { "process.env.CFG_TEST": "\"true\"" }
   testDefine,
 
-  // cfgTest: "undefined"
-  // "process.env.CFG_TEST": "\"false\""
-  // "process.env.CFG_TEST_URL": "undefined"
-  // "process.env.CFG_TEST_FILE": "undefined"
-  // "process.env.CFG_TEST_WATCH": "\"false\""
+  // {
+  //   cfgTest: "undefined",
+  //   "process.env.CFG_TEST": "\"false\"",
+  //   "process.env.CFG_TEST_URL": "undefined",
+  //   "process.env.CFG_TEST_FILE": "undefined",
+  //   "process.env.CFG_TEST_WATCH": "\"false\"",
+  // }
   buildDefine,
 } from "cfg-test/define"
 ```
@@ -142,6 +147,7 @@ import { build } from "esbuild"
 
 build({
   define: {
+    NODE_ENV: "\"production\"",
     ...buildDefine,
   },
   // other options
@@ -157,6 +163,7 @@ import { buildDefine } from "cfg-test/define"
 
 export default defineConfig({
   define: { 
+    NODE_ENV: "\"production\"",
     ...buildDefine,
   }, 
   // other options
@@ -174,6 +181,7 @@ import { buildDefine } from "cfg-test/define"
 export default {
   plugins: [
     replace({ 
+      NODE_ENV: "\"production\"",
       ...buildDefine,
     }),
   ],
@@ -187,6 +195,7 @@ export default {
 import { buildDefine } from "cfg-test/define"
 
 const definePlugin = new webpack.DefinePlugin({
+  NODE_ENV: "\"production\"",
   ...buildDefine,
 })
 ```

@@ -1,7 +1,7 @@
 {
   "name": "cfg-test",
   "version": "0.0.0",
-  "description": "In-source Testing",
+  "description": "In-source testing using Node.js Test Runner",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
