@@ -26,6 +26,9 @@
     },
     "./globals": {
       "types": "./globals.d.ts"
+    },
+    "./dts-loader": {
+      "default": "./src/dts-loader.mjs"
     }
   },
   "optionalDependencies": {

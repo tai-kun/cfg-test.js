@@ -1,7 +1,7 @@
 const { resolve } = require("node:path");
 const { pathToFileURL } = require("node:url");
 const { createRequire, register: imp } = require("node:module");
-const { testEnv } = require("./define.cjs");
+const { testEnv } = require("cfg-test/define");
 
 const req = createRequire(pathToFileURL("./"));
 
@@ -77,7 +77,15 @@ exports.register = function register(setup = {}) {
         return available;
       };
 
-      if (isAvailable("ts-node")) {
+      if (isDTsFile(process.env.CFG_TEST_FILE)) {
+        if (/,--import[,=]cfg-test[,/]/.test(optionList)) {
+          const parentURL = toFileURL("./").href;
+          imp("cfg-test/dts-loader", parentURL);
+
+          logs.push("import cfg-test/dts-loader");
+          logs.push(`    parentURL: ${parentURL}`);
+        }
+      } else if (isAvailable("ts-node")) {
         if (/,--import[,=]cfg-test[,/]/.test(optionList)) {
           const parentURL = toFileURL("./").href;
           imp("ts-node/esm", parentURL);
@@ -179,4 +187,12 @@ function isInstalled(id) {
  */
 function isTsFile(file) {
   return /\.[cm]?tsx?$/i.test(file);
+}
+
+/**
+ * @param {string} file 
+ * @returns {boolean}
+ */
+function isDTsFile(file) {
+  return file.endsWith(".d.ts");
 }
