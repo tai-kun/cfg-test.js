@@ -101,14 +101,18 @@ npm test
 
 |Node.js|Transpiler|Type    |Link                                                      |
 |:------|:---------|:-------|:---------------------------------------------------------|
-|>=18.19|swc       |ESM     |[examples/node18/swc/esm](examples/node18/swc/esm)        |
+|^18.19 |swc       |ESM     |[examples/node18/swc/esm](examples/node18/swc/esm)        |
 |       |          |CommonJS|[examples/node18/swc/cjs](examples/node18/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node18/ts-node/esm](examples/node18/ts-node/esm)|
 |       |          |CommonJS|[examples/node18/ts-node/cjs](examples/node18/ts-node/cjs)|
-|>=20   |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
+|^20.0  |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
 |       |          |CommonJS|[examples/node20/swc/cjs](examples/node20/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node20/ts-node/esm](examples/node20/ts-node/esm)|
 |       |          |CommonJS|[examples/node20/ts-node/cjs](examples/node20/ts-node/cjs)|
+|^21.0  |swc       |ESM     |[examples/node21/swc/esm](examples/node21/swc/esm)        |
+|       |          |CommonJS|[examples/node21/swc/cjs](examples/node21/swc/cjs)        |
+|       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node21/ts-node/esm)|
+|       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node21/ts-node/cjs)|
 
 ## Production Build
 
