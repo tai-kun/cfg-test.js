@@ -40,7 +40,7 @@ exports.register = function register(setup = {}) {
     Object.assign(process.env, testEnv);
     process.env.NODE_ENV = "test";
     process.env.CFG_TEST_FILE = resolve(argv[fileIndex]);
-    process.env.CFG_TEST_WATCH = String(/,--watch,/.test(optionList));
+    process.env.CFG_TEST_WATCH = String(watchMode(optionList));
 
     if (pkg.type === "module" || setup.toFileURL) {
       process.env.CFG_TEST_URL = String(toFileURL(process.env.CFG_TEST_FILE));
@@ -78,7 +78,7 @@ exports.register = function register(setup = {}) {
       };
 
       if (isDTsFile(process.env.CFG_TEST_FILE)) {
-        if (/,--import[,=]cfg-test[,/]/.test(optionList)) {
+        if (esmMode(optionList)) {
           const parentURL = toFileURL("./").href;
           imp("cfg-test/dts-loader", parentURL);
 
@@ -86,7 +86,7 @@ exports.register = function register(setup = {}) {
           logs.push(`    parentURL: ${parentURL}`);
         }
       } else if (isAvailable("ts-node")) {
-        if (/,--import[,=]cfg-test[,/]/.test(optionList)) {
+        if (esmMode(optionList)) {
           const parentURL = toFileURL("./").href;
           imp("ts-node/esm", parentURL);
 
@@ -98,7 +98,7 @@ exports.register = function register(setup = {}) {
           logs.push("register ts-node");
         }
       } else if (isAvailable("@swc-node/register")) {
-        if (/,--import[,=]cfg-test[,/]/.test(optionList)) {
+        if (esmMode(optionList)) {
           const parentURL = toFileURL("./").href;
           imp("@swc-node/register/esm", parentURL);
 
@@ -139,7 +139,10 @@ exports.register = function register(setup = {}) {
           `env.CFG_TEST_URL: ${process.env.CFG_TEST_URL}`,
           `env.CFG_TEST_FILE: ${process.env.CFG_TEST_FILE}`,
           `env.CFG_TEST_WATCH: ${process.env.CFG_TEST_WATCH}`,
+          `esm: ${esmMode(optionList)}`,
+          `watch: ${watchMode(optionList)}`,
           `typescript: ${isTsFile(process.env.CFG_TEST_FILE)}`,
+          `declare: ${isDTsFile(process.env.CFG_TEST_FILE)}`,
         ]
           .concat(logs)
           .forEach(log => console.log(`[cfg-test]`, log));
@@ -195,4 +198,20 @@ function isTsFile(file) {
  */
 function isDTsFile(file) {
   return file.endsWith(".d.ts");
+}
+
+/**
+ * @param {string} option
+ * @returns {boolean}
+ */
+function esmMode(option) {
+  return /,--import[,=]cfg-test[,/]/.test(option);
+}
+
+/**
+ * @param {string} option
+ * @returns {boolean}
+ */
+function watchMode(option) {
+  return /,--watch,/.test(option);
 }
