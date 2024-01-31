@@ -54,3 +54,19 @@ jobs:
           cache: npm
       - name: Test
         run: npm run ci node20
+
+  test-node21:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - "21.x"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - name: Test
+        run: npm run ci node21

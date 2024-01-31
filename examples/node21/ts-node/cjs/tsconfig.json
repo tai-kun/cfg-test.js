@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+  },
+  "include": ["src"],
+  "ts-node": {
+    "files": true,
+  },
+}
