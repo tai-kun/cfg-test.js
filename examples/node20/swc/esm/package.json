@@ -2,8 +2,8 @@
   "type": "module",
   "scripts": {
     "test:type": "tsc --noEmit",
-    "test:unit:js": "node --import cfg-test --test=./src/*.js",
-    "test:unit:ts": "node --import cfg-test --test=./src/*.ts"
+    "test:unit:js": "node --import cfg-test --test ./src/lib.js",
+    "test:unit:ts": "node --import cfg-test --test ./src/lib.ts"
   },
   "devDependencies": {
     "@swc-node/register": "^1.6.8",

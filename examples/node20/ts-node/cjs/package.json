@@ -1,8 +1,8 @@
 {
   "scripts": {
     "test:type": "tsc --noEmit",
-    "test:unit:js": "node -r cfg-test --test=./src/*.js",
-    "test:unit:ts": "node -r cfg-test --test=./src/lib.ts"
+    "test:unit:js": "node -r cfg-test --test ./src/lib.js",
+    "test:unit:ts": "node -r cfg-test --test ./src/lib.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.6",

@@ -3,7 +3,7 @@
   "scripts": {
     "test:type": "tsc --noEmit",
     "test:unit:js": "exit 0",
-    "test:unit:ts": "node --import cfg-test --test=./src/**/*.ts"
+    "test:unit:ts": "node --import cfg-test --test ./src/lib.ts"
   },
   "devDependencies": {
     "@swc-node/register": "latest",

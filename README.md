@@ -80,7 +80,7 @@ if (
 {
   "type": "module",
   "scripts": {
-    "test": "node --import cfg-test --test=./src/**/*.ts"
+    "test": "node --import cfg-test --test ./src/lib.ts"
   },
   "devDependencies": {
     "@swc-node/register": "latest",
