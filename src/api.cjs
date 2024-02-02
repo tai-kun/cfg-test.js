@@ -38,7 +38,6 @@ exports.register = function register(setup = {}) {
     // env
 
     Object.assign(process.env, testEnv);
-    process.env.NODE_ENV = "test";
     process.env.CFG_TEST_FILE = resolve(argv[fileIndex]);
     process.env.CFG_TEST_WATCH = String(watchMode(optionList));
 

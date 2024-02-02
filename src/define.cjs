@@ -1,4 +1,5 @@
 exports.testEnv = Object.freeze({
+  NODE_ENV: "test",
   CFG_TEST: "true",
 });
 
@@ -10,6 +11,7 @@ exports.buildEnv = Object.freeze({
 });
 
 exports.testDefine = Object.freeze({
+  "process.env.NODE_ENV": "\"test\"",
   "process.env.CFG_TEST": "\"true\"",
 });
 
