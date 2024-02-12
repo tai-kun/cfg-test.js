@@ -8,7 +8,10 @@ declare namespace NodeJS {
 }
 
 type CfgTest = typeof import("node:test") & {
-  assert: typeof import("node:assert")
+  assert: Omit<typeof import("node:assert"), "ok"> & {
+    (value: unknown, message?: string | Error): void
+    ok(value: unknown, message?: string | Error): void
+  }
 }
 
 declare var cfgTest: CfgTest | undefined
