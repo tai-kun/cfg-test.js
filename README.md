@@ -14,6 +14,7 @@ In-source testing using [Node.js Test Runner](https://nodejs.org/api/test.html)
   - [Vite](#vite)
   - [Rollup](#rollup)
   - [Webpack](#webpack)
+- [Configuration (Optional)](#configuration)
 
 ## Requirements
 
@@ -202,4 +203,27 @@ const definePlugin = new webpack.DefinePlugin({
   NODE_ENV: "\"production\"",
   ...buildDefine,
 })
+```
+
+## Configuration
+
+```json5
+// config/code/cfg-test.json
+// or config/cfg-test.json
+// or cfg-test.json
+
+{
+  // Additonal environment variables
+  "env": {
+    "MY_CUSTOM_ENV": "true"
+  },
+  // Additional require modules
+  "require": [
+    "./path/to/require.js"
+  ],
+  // Additional import modules
+  "import": [
+    "./path/to/import.js"
+  ]
+}
 ```
