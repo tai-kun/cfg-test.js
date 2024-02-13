@@ -1,0 +1,8 @@
+{
+  "env": {
+    "ENV_FROM_CONFIG_FILE": "OK"
+  },
+  "import": [
+    "./config/import.js"
+  ]
+}
