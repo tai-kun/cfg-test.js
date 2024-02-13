@@ -139,6 +139,11 @@ exports.register = function register(setup = {}) {
 
           logs.push("import cfg-test/dts-loader");
           logs.push(`    parentURL: ${parentURL}`);
+        } else {
+          // CommonJS implementation of `cfg-test/dts-loader`
+          require("node:module")._extensions[".ts"] = () => ""
+
+          logs.push("register .ts loader");
         }
       } else if (isAvailable("ts-node")) {
         if (esmMode(optionList)) {
