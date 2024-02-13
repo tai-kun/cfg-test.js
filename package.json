@@ -8,7 +8,8 @@
   },
   "files": [
     "src",
-    "*.d.ts"
+    "*.d.ts",
+    "*.json"
   ],
   "exports": {
     ".": {
@@ -29,7 +30,8 @@
     },
     "./dts-loader": {
       "default": "./src/dts-loader.mjs"
-    }
+    },
+    "./schema.json": "./schema.json"
   },
   "optionalDependencies": {
     "@swc-node/register": ">=1.6.5",
