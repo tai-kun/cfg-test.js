@@ -56,9 +56,22 @@ exports.register = function register(setup = {}) {
 
     global.cfgTest = new Proxy(require("node:test"), {
       get(target, p, receiver) {
-        return p === "assert"
-          ? require("node:assert/strict")
-          : Reflect.get(target, p, receiver);
+        switch (p) {
+          case "url":
+            return process.env.CFG_TEST_URL;
+
+          case "file":
+            return process.env.CFG_TEST_FILE;
+
+          case "watch":
+            return process.env.CFG_TEST_WATCH === "true";
+
+          case "assert":
+            return require("node:assert/strict");
+
+          default:
+            return Reflect.get(target, p, receiver);
+        }
       }
     });
 
