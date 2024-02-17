@@ -10,7 +10,7 @@ const addOne = exports.addOne = function addOne(a) {
   return a + 1
 }
 
-if (cfgTest && process.env.CFG_TEST_FILE === __filename) {
+if (cfgTest.file === __filename) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {

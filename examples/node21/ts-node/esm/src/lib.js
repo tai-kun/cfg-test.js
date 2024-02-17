@@ -10,7 +10,7 @@ export function addOne(a) {
   return a + 1
 }
 
-if (cfgTest && process.env.CFG_TEST_FILE === import.meta.filename) {
+if (cfgTest.url === import.meta.url) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {

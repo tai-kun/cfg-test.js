@@ -40,7 +40,7 @@ export function addOne(a: number): number {
 }
 
 // in-source test suites
-if (cfgTest && process.env.CFG_TEST_FILE === import.meta.filename) {
+if (cfgTest!.url === import.meta.url) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {
