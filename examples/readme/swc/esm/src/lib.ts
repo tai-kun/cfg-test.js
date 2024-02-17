@@ -6,10 +6,7 @@ export function addOne(a: number): number {
 }
 
 // in-source test suites
-if (
-  process.env.NODE_ENV === "test"
-  && process.env.CFG_TEST_FILE === import.meta.filename
-) {
+if (cfgTest && process.env.CFG_TEST_FILE === import.meta.filename) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {
