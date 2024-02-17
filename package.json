@@ -20,7 +20,8 @@
     },
     "./define": {
       "types": "./src/define.d.ts",
-      "default": "./src/define.cjs"
+      "import": "./src/define.mjs",
+      "require": "./src/define.cjs"
     },
     "./manual": {
       "default": "./src/manual.cjs"
