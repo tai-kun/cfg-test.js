@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 
-if [ ! -f .cache/act ]; then
-    mkdir -p .cache
-    curl https://github.com/nektos/act/releases/download/v0.2.57/act_Linux_x86_64.tar.gz -L -o .cache/act.tar.gz
-    tar xzf .cache/act.tar.gz -C .cache
+GH_USER="nektos"
+GH_REPO="act"
+
+TAG=$(curl --silent "https://api.github.com/repos/$GH_USER/$GH_REPO/releases/latest" | jq -r .tag_name)
+BIN=".cache/act-$TAG"
+
+if [ ! -f "$BIN" ]; then
+    echo "Downloading act $TAG"
+
+    mkdir -p "$BIN-tmp"
+    curl https://github.com/nektos/act/releases/download/v0.2.57/act_Linux_x86_64.tar.gz -L -o "$BIN-tmp/assets.tar.gz"
+    tar xzf "$BIN-tmp/assets.tar.gz" -C "$BIN-tmp"
+    mv "$BIN-tmp/act" "$BIN"
+
+    echo "act $TAG downloaded"
 fi
 
-.cache/act -W .github/workflows/quality.yaml
+"$BIN" -W .github/workflows/quality.yaml
