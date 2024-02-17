@@ -1,4 +1,5 @@
 export declare const testEnv: {
+  readonly NODE_ENV: "test";
   readonly CFG_TEST: "true";
 };
 
@@ -10,6 +11,7 @@ export declare const buildEnv: {
 };
 
 export declare const testDefine: {
+  readonly "process.env.NODE_ENV": "\"test\"";
   readonly "process.env.CFG_TEST": "\"true\"";
 };
 

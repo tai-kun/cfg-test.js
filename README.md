@@ -116,7 +116,10 @@ npm test
 
 ```ts
 import {
-  // { CFG_TEST: "true" }
+  // {
+  //   NODE_ENV: "test",
+  //   CFG_TEST: "true",
+  // }
   testEnv,
 
   // {
@@ -127,11 +130,23 @@ import {
   // }
   buildEnv,
 
-  // { "process.env.CFG_TEST": "\"true\"" }
+  // {
+  //   "process.env.NODE_ENV": "\"test\"",
+  //   "process.env.CFG_TEST": "\"true\"",
+  // }
   testDefine,
 
   // {
   //   cfgTest: "undefined",
+  //   "cfgTest.url": "undefined",
+  //   "cfgTest?.url": "undefined",
+  //   "cfgTest!.url": "undefined",
+  //   "cfgTest.file": "undefined",
+  //   "cfgTest?.file": "undefined",
+  //   "cfgTest!.file": "undefined",
+  //   "cfgTest.watch": "false",
+  //   "cfgTest?.watch": "false",
+  //   "cfgTest!.watch": "false",
   //   "process.env.CFG_TEST": "\"false\"",
   //   "process.env.CFG_TEST_URL": "undefined",
   //   "process.env.CFG_TEST_FILE": "undefined",
