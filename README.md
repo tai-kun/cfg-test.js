@@ -40,7 +40,7 @@ export function addOne(a: number): number {
 }
 
 // in-source test suites
-if (cfgTest!.url === import.meta.url) {
+if (cfgTest && cfgTest.url === import.meta.url) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {
@@ -138,15 +138,6 @@ import {
 
   // {
   //   cfgTest: "undefined",
-  //   "cfgTest.url": "undefined",
-  //   "cfgTest?.url": "undefined",
-  //   "cfgTest!.url": "undefined",
-  //   "cfgTest.file": "undefined",
-  //   "cfgTest?.file": "undefined",
-  //   "cfgTest!.file": "undefined",
-  //   "cfgTest.watch": "false",
-  //   "cfgTest?.watch": "false",
-  //   "cfgTest!.watch": "false",
   //   "process.env.CFG_TEST": "\"false\"",
   //   "process.env.CFG_TEST_URL": "undefined",
   //   "process.env.CFG_TEST_FILE": "undefined",
@@ -161,15 +152,12 @@ import {
 ```ts
 import { buildDefine } from "cfg-test/define"
 import { build } from "esbuild"
-import { replace } from "esbuild-plugin-replace"
 
 build({
-  plugins: [
-    replace({
-      NODE_ENV: "\"production\"",
-      ...buildDefine
-    })
-  ],
+  define: {
+    NODE_ENV: "\"production\"",
+    ...buildDefine,
+  },
   // other options
 })
 ```
@@ -179,16 +167,14 @@ build({
 ```ts
 // vite.config.ts
 
-import replace from "@rollup/plugin-replace"
 import { buildDefine } from "cfg-test/define"
+import { defineConfig } from "vite"
 
 export default defineConfig({
-  plugins: [
-    replace({ 
-      NODE_ENV: "\"production\"",
-      ...buildDefine,
-    }),
-  ],
+  define: {
+    NODE_ENV: "\"production\"",
+    ...buildDefine,
+  },
   // other options
 })
 ```
