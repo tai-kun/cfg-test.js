@@ -161,12 +161,15 @@ import {
 ```ts
 import { buildDefine } from "cfg-test/define"
 import { build } from "esbuild"
+import { replace } from "esbuild-plugin-replace"
 
 build({
-  define: {
-    NODE_ENV: "\"production\"",
-    ...buildDefine,
-  },
+  plugins: [
+    replace({
+      NODE_ENV: "\"production\"",
+      ...buildDefine
+    })
+  ],
   // other options
 })
 ```
@@ -176,13 +179,16 @@ build({
 ```ts
 // vite.config.ts
 
+import replace from "@rollup/plugin-replace"
 import { buildDefine } from "cfg-test/define"
 
 export default defineConfig({
-  define: { 
-    NODE_ENV: "\"production\"",
-    ...buildDefine,
-  }, 
+  plugins: [
+    replace({ 
+      NODE_ENV: "\"production\"",
+      ...buildDefine,
+    }),
+  ],
   // other options
 })
 ```
