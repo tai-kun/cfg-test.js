@@ -12,10 +12,7 @@ export function addOne(a) {
   return a + 1
 }
 
-if (
-  process.env.NODE_ENV === "test"
-  && process.env.CFG_TEST_URL === import.meta.url
-) {
+if (cfgTest && cfgTest.url === import.meta.url) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {

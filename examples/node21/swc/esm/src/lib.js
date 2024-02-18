@@ -10,7 +10,7 @@ export function addOne(a) {
   return a + 1
 }
 
-if (cfgTest.url === import.meta.url) {
+if (cfgTest && cfgTest.url === import.meta.url) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {

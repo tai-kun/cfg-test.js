@@ -4,7 +4,7 @@ export function addOne(a: number): number {
   return a + 1
 }
 
-if (cfgTest?.file === __filename) {
+if (cfgTest && cfgTest.file === __filename) {
   const { assert, describe, test } = cfgTest
 
   describe("addOne", () => {
