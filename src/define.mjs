@@ -17,15 +17,6 @@ export const testDefine = Object.freeze({
 
 export const buildDefine = Object.freeze({
   "cfgTest": "undefined",
-  "cfgTest.url": "undefined",
-  "cfgTest?.url": "undefined",
-  "cfgTest!.url": "undefined",
-  "cfgTest.file": "undefined",
-  "cfgTest?.file": "undefined",
-  "cfgTest!.file": "undefined",
-  "cfgTest.watch": "false",
-  "cfgTest?.watch": "false",
-  "cfgTest!.watch": "false",
   "process.env.CFG_TEST": "\"false\"",
   "process.env.CFG_TEST_URL": "undefined",
   "process.env.CFG_TEST_FILE": "undefined",

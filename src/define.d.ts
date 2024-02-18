@@ -17,15 +17,6 @@ export declare const testDefine: {
 
 export declare const buildDefine: {
   readonly cfgTest: "undefined";
-  readonly "cfgTest.url": "undefined";
-  readonly "cfgTest?.url": "undefined";
-  readonly "cfgTest!.url": "undefined";
-  readonly "cfgTest.file": "undefined";
-  readonly "cfgTest?.file": "undefined";
-  readonly "cfgTest!.file": "undefined";
-  readonly "cfgTest.watch": "false";
-  readonly "cfgTest?.watch": "false";
-  readonly "cfgTest!.watch": "false";
   readonly "process.env.CFG_TEST": "\"false\"";
   readonly "process.env.CFG_TEST_URL": "undefined";
   readonly "process.env.CFG_TEST_FILE": "undefined";
