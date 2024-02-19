@@ -155,8 +155,8 @@ import { build } from "esbuild"
 
 build({
   define: {
-    NODE_ENV: "\"production\"",
     ...buildDefine,
+    "process.env.NODE_ENV": "\"production\"",
   },
   // other options
 })
@@ -172,8 +172,8 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   define: {
-    NODE_ENV: "\"production\"",
     ...buildDefine,
+    "process.env.NODE_ENV": "\"production\"",
   },
   // other options
 })
@@ -190,8 +190,8 @@ import { buildDefine } from "cfg-test/define"
 export default {
   plugins: [
     replace({ 
-      NODE_ENV: "\"production\"",
       ...buildDefine,
+      "process.env.NODE_ENV": "\"production\"",
     }),
   ],
   // other options
@@ -204,8 +204,8 @@ export default {
 import { buildDefine } from "cfg-test/define"
 
 const definePlugin = new webpack.DefinePlugin({
-  NODE_ENV: "\"production\"",
   ...buildDefine,
+  "process.env.NODE_ENV": "\"production\"",
 })
 ```
 
