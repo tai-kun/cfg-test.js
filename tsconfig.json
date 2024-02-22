@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "./node_modules/@tsconfig/node18/tsconfig.json",
+    "./node_modules/@tsconfig/strictest/tsconfig.json"
+  ],
+  "include": [
+    "scripts/**/*",
+    "src/**/*",
+    "globals.d.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  }
+}
