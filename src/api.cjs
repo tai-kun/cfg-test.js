@@ -47,7 +47,7 @@ exports.register = function register(setup = {}) {
     }
 
     process.env.CFG_TEST_CFG = process.env.CFG_TEST_CFG || `${[
-      "config/code/cfg-test",
+      "config/cfg-test/config",
       "config/cfg-test",
       "cfg-test",
     ]}`;

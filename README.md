@@ -211,10 +211,13 @@ const definePlugin = new webpack.DefinePlugin({
 
 ## Configuration
 
+Loaders can be added via the configuration file.
+
+Specify the path to the configuration file in the environment variable CFG_TEST_CFG. The default value is a comma-separated list of paths: `config/cfg-test/config`, `config/cfg-test`, and `cfg-test.yaml`.
+
 ```json5
-// config/code/cfg-test.json
-// or config/cfg-test.json
-// or cfg-test.json
+// config/cfg-test/config.json or config/cfg-test.json or cfg-test.json
+// or process.env.CFG_TEST_CFG="<your-config-path>"
 
 {
   // Additonal environment variables
