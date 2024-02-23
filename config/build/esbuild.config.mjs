@@ -53,9 +53,6 @@ export default [
 
     plugins: [
       replace({
-        "import.meta.url":
-          `require("node:url").pathToFileURL(__filename).toString()`,
-        "import.meta": "{}",
         "__IS_ESM_MODE__": "false",
       }),
       autoInsertExt("cjs"),
