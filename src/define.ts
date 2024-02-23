@@ -17,7 +17,7 @@ export const buildEnv = Object.freeze(
 export const testDefine = Object.freeze(
   {
     "process.env.NODE_ENV": "\"test\"",
-    "process.env.CFG_TEST": "\"1\"",
+    "process.env.CFG_TEST": "\"true\"",
   } as const,
 )
 
