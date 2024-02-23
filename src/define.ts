@@ -24,7 +24,6 @@ export const testDefine = Object.freeze(
 export const buildDefine = Object.freeze(
   {
     cfgTest: "undefined",
-    "import.meta.test": "undefined",
     "process.env.CFG_TEST": "\"false\"",
     "process.env.CFG_TEST_URL": "undefined",
     "process.env.CFG_TEST_FILE": "undefined",
