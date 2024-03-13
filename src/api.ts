@@ -132,6 +132,18 @@ export function register(options: RegisterOptions | undefined = {}): void {
     }
   }
 
+  if (cfg && cfg.globals) {
+    for (const [key, value] of Object.entries(cfg.globals)) {
+      if (key in global) {
+        logs.push(`ignore-global: ${key}`)
+      } else {
+        logs.push(`add-global: ${key}`)
+        // @ts-expect-error
+        global[key] = value
+      }
+    }
+  }
+
   if (cfg && cfg.import) {
     if (!Array.isArray(cfg.import)) {
       cfg.import = [cfg.import]
