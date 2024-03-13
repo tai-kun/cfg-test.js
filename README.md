@@ -224,6 +224,10 @@ Specify the path to the configuration file in the environment variable CFG_TEST_
   "env": {
     "MY_CUSTOM_ENV": "true"
   },
+  "globals": {
+    // Additional global variables
+    "__DEV__": true
+  },
   // Additional require modules
   "require": [
     "./path/to/require.js"
