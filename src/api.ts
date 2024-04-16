@@ -6,6 +6,7 @@ import process from "node:process"
 import { pathToFileURL } from "node:url"
 import type { Config } from "./config"
 import { testEnv } from "./define"
+import * as log from "./log"
 
 const ARGV = ["/path/to/node", "/path/to/file"]
 const fileIndex = ARGV.indexOf("/path/to/file")
@@ -39,18 +40,34 @@ export function register(options: RegisterOptions | undefined = {}): void {
   // ... --import cfg-test ...
   const isEsmMode = /,--import,cfg-test[,/]/.test(nodeOptions)
   const isWatchMode = /,--watch,/.test(nodeOptions)
+  const isDTsFile = file.endsWith(".d.ts")
+  const isTypeScript = /\.[cm]?tsx?$/i.test(file)
+
+  log.debug(() => [
+    `auto mode -> ${auto}`,
+    `esm mode -> ${isEsmMode}`,
+    `watch mode -> ${isWatchMode}`,
+    `typescript file -> ${isTypeScript}`,
+    `declare file -> ${isDTsFile}`,
+    `argv -> ${argv.map(a => JSON.stringify(a)).join(" ")}`,
+    `execArgv -> ${execArgv.map(a => JSON.stringify(a)).join(" ")}`,
+    `cwd -> ${JSON.stringify(cwd)}`,
+    `parentUrl -> ${JSON.stringify(parentUrl)}`,
+    `target file -> ${JSON.stringify(file)}`,
+  ])
 
   if (
     isEsmMode
     // @ts-expect-error
     && __IS_ESM_MODE__ !== true
   ) {
-    throw new Error("Cannot import `cfg-test` in CommonJS")
+    log.error(() => ["Cannot import `cfg-test` in CommonJS"])
+    process.exit(1)
   }
 
   // env
 
-  Object.assign(process.env, {
+  const env = {
     ...testEnv,
     CFG_TEST_CFG: process.env.CFG_TEST_CFG ?? `${[
       ".config/cfg-test",
@@ -60,17 +77,32 @@ export function register(options: RegisterOptions | undefined = {}): void {
       "cfg-test",
     ]}`,
     CFG_TEST_FILE: file,
-  })
+  }
 
   if (isEsmMode) {
-    Object.assign(process.env, {
+    Object.assign(env, {
       CFG_TEST_URL: pathToFileURL(file),
     })
   }
 
-  Object.assign(process.env, {
+  Object.assign(env, {
     CFG_TEST_WATCH: `${isWatchMode}`,
   })
+
+  const originalEnv = { ...process.env }
+
+  log.debug(() =>
+    Object.entries(env)
+      .filter(([k, v]) => [undefined, v].includes(originalEnv[k]))
+      .map(([k, v]) => `Added env.${k}=${JSON.stringify(v)} by cfg-test.`)
+  )
+  log.warn(() =>
+    Object.entries(env)
+      .filter(([k, v]) => [undefined, v].every(v => v !== originalEnv[k]))
+      .map(([k, v]) => `Updated env.${k}=${JSON.stringify(v)} by cfg-test.`)
+  )
+
+  Object.assign(process.env, env)
 
   // utils
 
@@ -99,7 +131,6 @@ export function register(options: RegisterOptions | undefined = {}): void {
 
   // config
 
-  const logs: any[] = []
   let cfg: Config | undefined
 
   for (const id of process.env.CFG_TEST_CFG!.split(",")) {
@@ -118,9 +149,9 @@ export function register(options: RegisterOptions | undefined = {}): void {
       }
 
       if (process.env[key] === undefined) {
-        logs.push(`add-env: process.env[${JSON.stringify(key)}]`)
+        log.debug(() => [`Added env.${key} by config file.`])
       } else {
-        logs.push(`update-env: process.env[${JSON.stringify(key)}]`)
+        log.warn(() => [`Updated env.${key} by config file.`])
       }
 
       process.env[key] = value
@@ -130,9 +161,9 @@ export function register(options: RegisterOptions | undefined = {}): void {
   if (cfg && cfg.globals) {
     for (const [key, value] of Object.entries(cfg.globals)) {
       if (key in global) {
-        logs.push(`ignore-global: ${key}`)
+        log.warn(() => [`Updated global.${key} by config file.`])
       } else {
-        logs.push(`add-global: ${key}`)
+        log.debug(() => [`Added global.${key} by config file.`])
         // @ts-expect-error
         global[key] = value
       }
@@ -144,10 +175,10 @@ export function register(options: RegisterOptions | undefined = {}): void {
       cfg.import = [cfg.import]
     }
 
-    cfg.import.forEach(id => {
-      logs.push(`import: ${id}`)
+    for (const id of cfg.import) {
+      log.debug(() => [`Imported module ${id} by config file.`])
       load(id, parentUrl)
-    })
+    }
   }
 
   if (cfg && cfg.require) {
@@ -155,21 +186,23 @@ export function register(options: RegisterOptions | undefined = {}): void {
       cfg.require = [cfg.require]
     }
 
-    cfg.require.forEach(id => {
-      logs.push(`require: ${id}`)
+    for (const id of cfg.require) {
+      log.debug(() => [`Required module ${id} by config file.`])
       require(id)
-    })
+    }
   }
 
   // transpiler
-
-  const isDTsFile = file.endsWith(".d.ts")
 
   if (auto) {
     const isAvailable = (id: string): boolean => {
       const available = isInstalled(id)
 
-      logs.push(`${id} availability: ${available}`)
+      if (available) {
+        log.debug(() => [`Transpiler ${id} is available.`])
+      } else {
+        log.warn(() => [`Transpiler ${id} is not available.`])
+      }
 
       return available
     }
@@ -177,79 +210,36 @@ export function register(options: RegisterOptions | undefined = {}): void {
     if (isDTsFile) {
       if (isEsmMode) {
         load("cfg-test/dts-loader", parentUrl)
-
-        logs.push("import cfg-test/dts-loader")
-        logs.push(`    parentUrl: ${parentUrl}`)
       } else {
         // CommonJS implementation of `cfg-test/dts-loader`
         require("node:module")._extensions[".ts"] = () => ""
-
-        logs.push("register .ts loader")
       }
+
+      log.debug(() => ["Registered `cfg-test/dts-loader`"])
     } else if (isAvailable("ts-node")) {
       if (isEsmMode) {
         load("ts-node/esm", parentUrl)
 
-        logs.push("import ts-node/esm")
-        logs.push(`    parentUrl: ${parentUrl}`)
+        log.debug(() => ["Registered `ts-node/esm` automatically."])
       } else {
         require("ts-node").register()
 
-        logs.push("register ts-node")
+        log.debug(() => ["Registered `ts-node` automatically."])
       }
     } else if (isAvailable("@swc-node/register")) {
       if (isEsmMode) {
         load("@swc-node/register/esm", parentUrl)
 
-        logs.push("import @swc-node/register/esm")
-        logs.push(`    parentUrl: ${parentUrl}`)
+        log.debug(() => ["Registered `@swc-node/register/esm` automatically."])
       } else {
-        require("@swc-node/register/register").register({
-          sourceMap: true,
-        })
+        require("@swc-node/register/register").register({ sourceMap: true })
 
-        logs.push("register @swc-node/register")
+        log.debug(() => [
+          "Registered `@swc-node/register/register` automatically.",
+        ])
       }
     }
   }
-
-  // log
-
-  const isTruey = (v: any) => ["1", "true"].includes(String(v).toLowerCase())
-  let showLog = (): void => {
-    showLog = () => {}
-
-    if (
-      isTruey(process.env["ACT"])
-      || isTruey(process.env["DEBUG"])
-      || isTruey(process.env["TRACE"])
-      || isTruey(process.env["ACTIONS_STEP_DEBUG"])
-      || isTruey(process.env["ACTIONS_RUNNER_DEBUG"])
-    ) {
-      ;[
-        `auto: ${auto}`,
-        `argv: ${argv.join(" ")}`,
-        `execArgv: ${execArgv.join(" ")}`,
-        `env.NODE_ENV: ${process.env["NODE_ENV"]}`,
-        `env.CFG_TEST: ${process.env.CFG_TEST}`,
-        `env.CFG_TEST_URL: ${process.env.CFG_TEST_URL}`,
-        `env.CFG_TEST_FILE: ${process.env.CFG_TEST_FILE}`,
-        `env.CFG_TEST_WATCH: ${process.env.CFG_TEST_WATCH}`,
-        `esm: ${isEsmMode}`,
-        `watch: ${isWatchMode}`,
-        `typescript: ${/\.[cm]?tsx?$/i.test(file)}`,
-        `declare: ${isDTsFile}`,
-        ...logs,
-      ].forEach(log => console.log(`[cfg-test]`, log))
-    }
-  }
-
-  process.once(
-    "exit",
-    code => (code || isTruey(process.env["CFG_TEST_DEBUG"])) && showLog(),
-  )
-  process.once("uncaughtException", () => showLog())
-  process.once("unhandledRejection", () => showLog())
 }
 
 function isInstalled(id: string): boolean {
