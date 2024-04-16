@@ -43,8 +43,7 @@ export function register(options: RegisterOptions | undefined = {}): void {
       : execArgv
   },`
   // ... --import cfg-test ...
-  // ... --import=cfg-test ...
-  const isEsmMode = /,--import[,=]cfg-test[,/]/.test(nodeOptions)
+  const isEsmMode = /,--import,cfg-test[,/]/.test(nodeOptions)
   const isWatchMode = /,--watch,/.test(nodeOptions)
 
   if (
