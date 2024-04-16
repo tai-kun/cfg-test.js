@@ -50,7 +50,7 @@ function log(
 }
 
 export function debug(msg: () => readonly unknown[]): void {
-  if (!isDebugMode) {
+  if (isDebugMode) {
     log(process.stdout, "DEBUG", msg)
   }
 }
