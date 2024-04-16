@@ -33,7 +33,9 @@ const yellow: Fmt = !isColorSupported
 const time = (): string => (new Date()).toLocaleTimeString()
 
 const toStr = (msg: unknown): string =>
-  formatWithOptions({ colors: isColorSupported }, "%O", msg)
+  typeof msg === "object" && msg !== null
+    ? formatWithOptions({ colors: isColorSupported }, "%O", msg)
+    : String(msg)
 
 // Logger
 
@@ -43,7 +45,7 @@ function log(
   msg: () => readonly unknown[],
 ): void {
   for (const m of msg()) {
-    o.write(`${dim(time())} ${lv} [cfg-test] ${toStr(m)}`, "utf8")
+    o.write(`${dim(time())} ${lv} ${dim("[cfg-test]")} ${toStr(m)}\n`, "utf8")
   }
 }
 
@@ -58,5 +60,5 @@ export function error(msg: () => readonly unknown[]): void {
 }
 
 export function warn(msg: () => readonly unknown[]): void {
-  log(process.stdout, yellow("WARN"), msg)
+  log(process.stdout, yellow("WARN") + " ", msg)
 }
