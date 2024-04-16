@@ -17,4 +17,10 @@ if [ ! -f "$BIN" ]; then
     echo "act $TAG downloaded"
 fi
 
-"$BIN" -W .github/workflows/quality.yaml
+rc=0
+
+"$BIN" -W .github/workflows/quality.yaml || rc=$?
+
+echo
+echo "Test exit code: $rc"
+exit $rc
