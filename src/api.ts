@@ -230,9 +230,9 @@ export function register(options: RegisterOptions | undefined = {}): void {
 
   // log
 
+  const isTruey = (v: any) => ["1", "true"].includes(String(v).toLowerCase())
   let showLog = (): void => {
     showLog = () => {}
-    const isTruey = (v: any) => ["1", "true"].includes(String(v).toLowerCase())
 
     if (
       isTruey(process.env["ACT"])
@@ -260,7 +260,10 @@ export function register(options: RegisterOptions | undefined = {}): void {
     }
   }
 
-  process.once("exit", code => code && showLog())
+  process.once(
+    "exit",
+    code => (code || isTruey(process.env["CFG_TEST_DEBUG"])) && showLog(),
+  )
   process.once("uncaughtException", () => showLog())
   process.once("unhandledRejection", () => showLog())
 }
