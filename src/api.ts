@@ -16,7 +16,6 @@ const require = createRequire(cwdUrl)
 const parentUrl = cwdUrl.toString()
 
 export interface RegisterOptions {
-  readonly pkg?: unknown
   readonly auto?: boolean | undefined
   readonly argv?: readonly string[] | undefined
   readonly execArgv?: readonly string[] | undefined
@@ -29,11 +28,6 @@ export function register(options: RegisterOptions | undefined = {}): void {
     return
   }
 
-  const pkg = toPlainObject(
-    typeof options.pkg === "function"
-      ? options.pkg()
-      : options.pkg,
-  )
   const auto = options.auto === true
   const file = resolve(argv[fileIndex]!)
   const execArgv = options.execArgv || process.execArgv
@@ -172,19 +166,10 @@ export function register(options: RegisterOptions | undefined = {}): void {
   const isDTsFile = file.endsWith(".d.ts")
 
   if (auto) {
-    const deps = new Set([
-      ...Object.keys(toPlainObject(pkg["dependencies"])),
-      ...Object.keys(toPlainObject(pkg["devDependencies"])),
-      ...Object.keys(toPlainObject(pkg["optionalDependencies"])),
-    ])
     const isAvailable = (id: string): boolean => {
-      const dependency = deps.has(id)
-      const installed = isInstalled(id)
-      const available = dependency && installed
+      const available = isInstalled(id)
 
       logs.push(`${id} availability: ${available}`)
-      logs.push(`    dependency: ${dependency}`)
-      logs.push(`    installed:  ${installed}`)
 
       return available
     }
@@ -242,7 +227,6 @@ export function register(options: RegisterOptions | undefined = {}): void {
       || isTruey(process.env["ACTIONS_RUNNER_DEBUG"])
     ) {
       ;[
-        `type: ${pkg["type"] || "commonjs"}`,
         `auto: ${auto}`,
         `argv: ${argv.join(" ")}`,
         `execArgv: ${execArgv.join(" ")}`,
@@ -266,18 +250,6 @@ export function register(options: RegisterOptions | undefined = {}): void {
   )
   process.once("uncaughtException", () => showLog())
   process.once("unhandledRejection", () => showLog())
-}
-
-function isPlainObject(o: unknown): o is Record<string, any> {
-  return (
-    o !== null
-    && typeof o === "object"
-    && (o.constructor === Object || o.constructor === undefined)
-  )
-}
-
-function toPlainObject(o: unknown): Record<string, any> {
-  return isPlainObject(o) ? o : {}
 }
 
 function isInstalled(id: string): boolean {
