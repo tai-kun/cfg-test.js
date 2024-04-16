@@ -238,6 +238,12 @@ export function register(options: RegisterOptions | undefined = {}): void {
 
         log.debug(() => ["Registered `ts-node` automatically."])
       }
+    } else if (isTypeScript) {
+      log.error(() => [
+        "No transpiler found. "
+        + "Please install `@swc-node/register` or `ts-node`. "
+        + "Or use manual mode (`cfg-test/manual`) and transpiler.",
+      ])
     }
   }
 }

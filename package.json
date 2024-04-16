@@ -32,6 +32,11 @@
       "types": "./dist/dts-loader.d.mts",
       "import": "./dist/dts-loader.mjs"
     },
+    "./manual": {
+      "types": "./dist/manual.d.ts",
+      "import": "./dist/manual.mjs",
+      "require": "./dist/manual.cjs"
+    },
     "./globals": {
       "types": "./globals.d.ts"
     },
