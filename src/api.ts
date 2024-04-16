@@ -60,8 +60,10 @@ export function register(options: RegisterOptions | undefined = {}): void {
   Object.assign(process.env, {
     ...testEnv,
     CFG_TEST_CFG: process.env.CFG_TEST_CFG ?? `${[
-      "config/cfg-test/config",
+      ".config/cfg-test",
+      ".config/cfg-test/config",
       "config/cfg-test",
+      "config/cfg-test/config",
       "cfg-test",
     ]}`,
     CFG_TEST_FILE: file,
