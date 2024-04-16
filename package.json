@@ -40,7 +40,7 @@
   "devDependencies": {
     "@tsconfig/node18": "~18.2.2",
     "@tsconfig/strictest": "~2.0.3",
-    "@types/node": "~18.19.17",
+    "@types/node": "~20.12.7",
     "dprint": "~0.45.0",
     "esbuild": "~0.20.1",
     "esbuild-plugin-replace": "^1.4.0",
