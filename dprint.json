@@ -14,7 +14,7 @@
     "arrowFunction.useParentheses": "preferNone"
   },
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.89.0.wasm",
-    "https://plugins.dprint.dev/json-0.19.1.wasm"
+    "https://plugins.dprint.dev/typescript-0.90.1.wasm",
+    "https://plugins.dprint.dev/json-0.19.2.wasm"
   ]
 }
