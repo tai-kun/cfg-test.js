@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
   "include": [
     "@types",
-    "src",
-  ],
+    "src"
+  ]
 }
