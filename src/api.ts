@@ -216,16 +216,6 @@ export function register(options: RegisterOptions | undefined = {}): void {
       }
 
       log.debug(() => ["Registered `cfg-test/dts-loader`"])
-    } else if (isAvailable("ts-node")) {
-      if (isEsmMode) {
-        load("ts-node/esm", parentUrl)
-
-        log.debug(() => ["Registered `ts-node/esm` automatically."])
-      } else {
-        require("ts-node").register()
-
-        log.debug(() => ["Registered `ts-node` automatically."])
-      }
     } else if (isAvailable("@swc-node/register")) {
       if (isEsmMode) {
         load("@swc-node/register/esm", parentUrl)
@@ -237,6 +227,16 @@ export function register(options: RegisterOptions | undefined = {}): void {
         log.debug(() => [
           "Registered `@swc-node/register/register` automatically.",
         ])
+      }
+    } else if (isAvailable("ts-node")) {
+      if (isEsmMode) {
+        load("ts-node/esm", parentUrl)
+
+        log.debug(() => ["Registered `ts-node/esm` automatically."])
+      } else {
+        require("ts-node").register()
+
+        log.debug(() => ["Registered `ts-node` automatically."])
       }
     }
   }
