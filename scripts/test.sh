@@ -10,7 +10,7 @@ if [ ! -f "$BIN" ]; then
     echo "Downloading act $TAG"
 
     mkdir -p "$BIN-tmp"
-    curl "https://github.com/nektos/act/releases/download/$TAG/act_Linux_x86_64.tar.gz" -L -o "$BIN-tmp/assets.tar.gz"
+    curl "https://github.com/$GH_USER/act/releases/download/$TAG/act_Linux_x86_64.tar.gz" -L -o "$BIN-tmp/assets.tar.gz"
     tar xzf "$BIN-tmp/assets.tar.gz" -C "$BIN-tmp"
     mv "$BIN-tmp/act" "$BIN"
 
