@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for example in node18 node20 node21 readme; do
+for example in node18 node20 node21 node22 readme; do
     test_case="$example"
 
     if [ ! -d "examples/$test_case" ]; then

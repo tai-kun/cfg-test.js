@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "scripts": {
+    "test:type": "tsc --noEmit",
+    "test:unit:js": "node --import cfg-test --test ./src/**/*.js",
+    "test:unit:ts": "node --import cfg-test --test ./src/**/*.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.6",
+    "cfg-test": "file:../../../..",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

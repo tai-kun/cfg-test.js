@@ -1,0 +1,11 @@
+{
+  "env": {
+    "ENV_FROM_CONFIG_FILE": "OK"
+  },
+  "globals": {
+    "__DEV__": true
+  },
+  "require": [
+    "./config/require.js"
+  ]
+}
