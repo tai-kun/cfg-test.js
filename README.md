@@ -103,14 +103,18 @@ npm test
 |       |          |CommonJS|[examples/node18/swc/cjs](examples/node18/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node18/ts-node/esm](examples/node18/ts-node/esm)|
 |       |          |CommonJS|[examples/node18/ts-node/cjs](examples/node18/ts-node/cjs)|
-|^20.0  |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
+|20.x   |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
 |       |          |CommonJS|[examples/node20/swc/cjs](examples/node20/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node20/ts-node/esm](examples/node20/ts-node/esm)|
 |       |          |CommonJS|[examples/node20/ts-node/cjs](examples/node20/ts-node/cjs)|
-|^21.0  |swc       |ESM     |[examples/node21/swc/esm](examples/node21/swc/esm)        |
+|21.x   |swc       |ESM     |[examples/node21/swc/esm](examples/node21/swc/esm)        |
 |       |          |CommonJS|[examples/node21/swc/cjs](examples/node21/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node21/ts-node/esm)|
 |       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node21/ts-node/cjs)|
+|22.x   |swc       |ESM     |[examples/node21/swc/esm](examples/node22/swc/esm)        |
+|       |          |CommonJS|[examples/node21/swc/cjs](examples/node22/swc/cjs)        |
+|       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node22/ts-node/esm)|
+|       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node22/ts-node/cjs)|
 
 ## Production Build
 
@@ -213,7 +217,7 @@ const definePlugin = new webpack.DefinePlugin({
 
 Loaders can be added via the configuration file.
 
-Specify the path to the configuration file in the environment variable CFG_TEST_CFG. The default value is a comma-separated list of paths: `config/cfg-test/config`, `config/cfg-test`, and `cfg-test`.
+Specify the path to the configuration file in the environment variable CFG_TEST_CFG. The default value is a comma-separated list of paths: `.config/cfg-test.json`, `.config/cfg-test/config.json`, `config/cfg-test/config`, `config/cfg-test`, and `cfg-test`.
 
 ```json5
 // .config/cfg-test.json, .config/cfg-test/config.json,
