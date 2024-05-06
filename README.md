@@ -111,10 +111,10 @@ npm test
 |       |          |CommonJS|[examples/node21/swc/cjs](examples/node21/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node21/ts-node/esm)|
 |       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node21/ts-node/cjs)|
-|22.x   |swc       |ESM     |[examples/node21/swc/esm](examples/node22/swc/esm)        |
-|       |          |CommonJS|[examples/node21/swc/cjs](examples/node22/swc/cjs)        |
-|       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node22/ts-node/esm)|
-|       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node22/ts-node/cjs)|
+|22.x   |swc       |ESM     |[examples/node22/swc/esm](examples/node22/swc/esm)        |
+|       |          |CommonJS|[examples/node22/swc/cjs](examples/node22/swc/cjs)        |
+|       |ts-node   |ESM     |[examples/node22/ts-node/esm](examples/node22/ts-node/esm)|
+|       |          |CommonJS|[examples/node22/ts-node/cjs](examples/node22/ts-node/cjs)|
 
 ## Production Build
 
