@@ -78,7 +78,7 @@ if (cfgTest && cfgTest.url === import.meta.url) {
 {
   "type": "module",
   "scripts": {
-    "test": "node --import cfg-test --test ./src/lib.ts"
+    "test": "node --enable-source-maps --import cfg-test --test ./src/lib.ts"
   },
   "devDependencies": {
     "@swc-node/register": "latest",
