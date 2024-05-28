@@ -46,7 +46,7 @@
     "@tsconfig/node18": "~18.2.2",
     "@tsconfig/strictest": "~2.0.3",
     "@types/node": "~20.12.7",
-    "dprint": "~0.45.0",
+    "dprint": "~0.46.1",
     "esbuild": "~0.21.1",
     "esbuild-plugin-replace": "^1.4.0",
     "typescript": "~5.4.5"
