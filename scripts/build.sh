@@ -16,5 +16,7 @@ fi
 
 node scripts/build.mjs
 
-cp config/build/tsconfig.build.json tsconfig.build.json
+cp config/build/tsconfig.build.json .
 npx tsc -p tsconfig.build.json
+
+cp docs/schema.json .
