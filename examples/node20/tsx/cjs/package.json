@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test:type": "tsc --noEmit",
+    "test:unit:js": "tsx -r cfg-test --test ./src/lib.js",
+    "test:unit:ts": "tsx -r cfg-test --test ./src/lib.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.6",
+    "cfg-test": "file:../../../..",
+    "tsx": "^4.11.2",
+    "typescript": "^5.3.3"
+  }
+}

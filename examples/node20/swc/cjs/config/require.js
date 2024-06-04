@@ -1,1 +1,1 @@
-global.__PLACEHOLDER_FOR_TEST__ = "OK"
+global.__PLACEHOLDER_FOR_TEST__ = "OK";

@@ -14,28 +14,33 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/auto.d.ts",
-      "import": "./dist/auto.mjs",
-      "require": "./dist/auto.cjs"
+      "types": "./dist/tsx.d.ts",
+      "import": "./dist/tsx.mjs",
+      "require": "./dist/tsx.cjs"
+    },
+    "./swc": {
+      "types": "./dist/swc.d.ts",
+      "import": "./dist/swc.mjs",
+      "require": "./dist/swc.cjs"
+    },
+    "./ts-node": {
+      "types": "./dist/ts-node.d.ts",
+      "import": "./dist/ts-node.mjs",
+      "require": "./dist/ts-node.cjs"
     },
     "./api": {
-      "types": "./dist/api.d.ts",
-      "import": "./dist/api.mjs",
-      "require": "./dist/api.cjs"
+      "types": "./dist/core/api.d.ts",
+      "import": "./dist/core/api.mjs",
+      "require": "./dist/core/api.cjs"
     },
     "./define": {
-      "types": "./dist/define.d.ts",
-      "import": "./dist/define.mjs",
-      "require": "./dist/define.cjs"
+      "types": "./dist/core/define.d.ts",
+      "import": "./dist/core/define.mjs",
+      "require": "./dist/core/define.cjs"
     },
     "./dts-loader": {
-      "types": "./dist/dts-loader.d.mts",
-      "import": "./dist/dts-loader.mjs"
-    },
-    "./manual": {
-      "types": "./dist/manual.d.ts",
-      "import": "./dist/manual.mjs",
-      "require": "./dist/manual.cjs"
+      "types": "./dist/core/dts-loader.d.mts",
+      "import": "./dist/core/dts-loader.mjs"
     },
     "./globals": {
       "types": "./globals.d.ts"

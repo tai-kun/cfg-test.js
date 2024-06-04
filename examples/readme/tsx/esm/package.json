@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "test:type": "tsc --noEmit",
+    "test:unit:js": "exit 0",
+    "test:unit:ts": "tsx --import cfg-test --test ./src/**/*.ts"
+  },
+  "devDependencies": {
+    "cfg-test": "file:../../../..",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

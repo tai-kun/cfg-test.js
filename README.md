@@ -2,6 +2,8 @@
 
 In-source testing using [Node.js Test Runner](https://nodejs.org/api/test.html)
 
+As a general recommendation, I suggest using [`tsx`](https://github.com/privatenumber/tsx) to transpile TypeScript files while running tests. `cfg-test` also provides presets for using either [`ts-node`](https://github.com/TypeStrong/ts-node) or [`swc`](https://github.com/swc-project/swc-node) as the transpiler. Naturally, these can be customised to fit your needs.
+
 [![npm latest package](https://img.shields.io/npm/v/cfg-test/latest.svg)](https://www.npmjs.com/package/cfg-test)
 [![Quality](https://github.com/tai-kun/cfg-test.js/actions/workflows/quality.yaml/badge.svg)](https://github.com/tai-kun/cfg-test.js/actions/workflows/quality.yaml)
 
@@ -23,13 +25,19 @@ Node.js `>=18.19.0`
 ## Install
 
 ```bash
-npm i -D cfg-test \
-  @swc-node/register \
-  @types/node \
-  typescript
+npm i -D cfg-test tsx typescript
 ```
 
 ## Setup
+
+```console
+/your-project
+├─ src
+│  ├─ lib.ts
+│  └─ env.d.ts
+├─ package.json
+└─ tsconfig.json
+```
 
 ```ts
 // src/lib.ts
@@ -52,9 +60,25 @@ if (cfgTest && cfgTest.url === import.meta.url) {
 ```
 
 ```ts
-// @types/global.d.ts
+// src/env.d.ts
 
 /// <reference types="cfg-test/globals" />
+```
+
+```json5
+// package.json
+
+{
+  "type": "module",
+  "scripts": {
+    "test": "tsx --import cfg-test --test ./src/**/*.ts"
+  },
+  "devDependencies": {
+    "cfg-test": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
 ```
 
 ```json5
@@ -66,26 +90,8 @@ if (cfgTest && cfgTest.url === import.meta.url) {
     "moduleResolution": "NodeNext",
   },
   "include": [
-    "@types",
-    "src",
+    "./src/**/*",
   ],
-}
-```
-
-```json5
-// package.json
-
-{
-  "type": "module",
-  "scripts": {
-    "test": "node --enable-source-maps --import cfg-test --test ./src/lib.ts"
-  },
-  "devDependencies": {
-    "@swc-node/register": "latest",
-    "@types/node": "latest",
-    "cfg-test": "latest",
-    "typescript": "latest"
-  }
 }
 ```
 
@@ -103,18 +109,20 @@ npm test
 |       |          |CommonJS|[examples/node18/swc/cjs](examples/node18/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node18/ts-node/esm](examples/node18/ts-node/esm)|
 |       |          |CommonJS|[examples/node18/ts-node/cjs](examples/node18/ts-node/cjs)|
+|       |tsx       |ESM     |[examples/node18/tsx/esm](examples/node18/tsx/esm)        |
+|       |          |CommonJS|[examples/node18/tsx/cjs](examples/node18/tsx/cjs)        |
 |20.x   |swc       |ESM     |[examples/node20/swc/esm](examples/node20/swc/esm)        |
 |       |          |CommonJS|[examples/node20/swc/cjs](examples/node20/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node20/ts-node/esm](examples/node20/ts-node/esm)|
 |       |          |CommonJS|[examples/node20/ts-node/cjs](examples/node20/ts-node/cjs)|
-|21.x   |swc       |ESM     |[examples/node21/swc/esm](examples/node21/swc/esm)        |
-|       |          |CommonJS|[examples/node21/swc/cjs](examples/node21/swc/cjs)        |
-|       |ts-node   |ESM     |[examples/node21/ts-node/esm](examples/node21/ts-node/esm)|
-|       |          |CommonJS|[examples/node21/ts-node/cjs](examples/node21/ts-node/cjs)|
+|       |tsx       |ESM     |[examples/node20/tsx/esm](examples/node20/tsx/esm)        |
+|       |          |CommonJS|[examples/node20/tsx/cjs](examples/node20/tsx/cjs)        |
 |22.x   |swc       |ESM     |[examples/node22/swc/esm](examples/node22/swc/esm)        |
 |       |          |CommonJS|[examples/node22/swc/cjs](examples/node22/swc/cjs)        |
 |       |ts-node   |ESM     |[examples/node22/ts-node/esm](examples/node22/ts-node/esm)|
 |       |          |CommonJS|[examples/node22/ts-node/cjs](examples/node22/ts-node/cjs)|
+|       |tsx       |ESM     |[examples/node22/tsx/esm](examples/node22/tsx/esm)        |
+|       |          |CommonJS|[examples/node22/tsx/cjs](examples/node22/tsx/cjs)        |
 
 ## Production Build
 

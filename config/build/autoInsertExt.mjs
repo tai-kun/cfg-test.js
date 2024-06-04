@@ -1,26 +1,26 @@
-import fs from "node:fs"
-import { join } from "node:path"
+import fs from "node:fs";
+import { join } from "node:path";
 
 /** @param {string} path */
 function isLocalFile(path) {
-  return path.startsWith(".")
+  return path.startsWith(".");
 }
 
 /** @type {Record<string, boolean>} */
-const accessCache = {}
+const accessCache = {};
 
 /** @param {string} file */
 function readOk(file) {
   if (file in accessCache) {
-    return accessCache[file]
+    return accessCache[file];
   }
 
   try {
-    fs.accessSync(file, fs.constants.R_OK)
+    fs.accessSync(file, fs.constants.R_OK);
 
-    return accessCache[file] = true
+    return accessCache[file] = true;
   } catch {
-    return accessCache[file] = false
+    return accessCache[file] = false;
   }
 }
 
@@ -31,10 +31,10 @@ function readOk(file) {
  */
 function getBuiltPath(dir, file, fmt) {
   if (file.endsWith(".cjs") || file.endsWith(".mjs")) {
-    return file
+    return file;
   }
 
-  dir = join(dir, file)
+  dir = join(dir, file);
 
   for (
     const [src, dst] of Object.entries({
@@ -46,11 +46,11 @@ function getBuiltPath(dir, file, fmt) {
     })
   ) {
     if (readOk(dir + src)) {
-      return file + dst
+      return file + dst;
     }
   }
 
-  return null
+  return null;
 }
 
 /**
@@ -63,7 +63,7 @@ export default function autoInsertExt(fmt) {
     setup(build) {
       build.onResolve({ filter: /.*/ }, args => {
         if (args.namespace !== "file" || args.kind !== "import-statement") {
-          return null
+          return null;
         }
 
         if (
@@ -72,16 +72,16 @@ export default function autoInsertExt(fmt) {
         ) {
           return {
             external: true,
-          }
+          };
         }
 
-        const builtPath = getBuiltPath(args.resolveDir, args.path, fmt)
+        const builtPath = getBuiltPath(args.resolveDir, args.path, fmt);
 
         if (builtPath) {
           return {
             path: builtPath,
             external: true,
-          }
+          };
         }
 
         return {
@@ -90,8 +90,8 @@ export default function autoInsertExt(fmt) {
               text: `File not found: ${args.path}`,
             },
           ],
-        }
-      })
+        };
+      });
     },
-  }
+  };
 }

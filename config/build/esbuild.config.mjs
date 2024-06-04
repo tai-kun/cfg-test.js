@@ -1,7 +1,7 @@
 // @ts-check
 
-import { replace } from "esbuild-plugin-replace"
-import autoInsertExt from "./autoInsertExt.mjs"
+import { replace } from "esbuild-plugin-replace";
+import autoInsertExt from "./autoInsertExt.mjs";
 
 /** @type {import("esbuild").BuildOptions} */
 const common = {
@@ -27,7 +27,7 @@ const common = {
   // Source maps
 
   sourcemap: "linked",
-}
+};
 
 /** @type {import("esbuild").BuildOptions[]} */
 export default [
@@ -37,7 +37,7 @@ export default [
     // Input
 
     entryPoints: [
-      "src/*.ts",
+      "src/**/*.ts",
       // "src/*.cts",
     ],
 
@@ -64,8 +64,8 @@ export default [
     // Input
 
     entryPoints: [
-      "src/*.ts",
-      "src/*.mts",
+      "src/**/*.ts",
+      "src/**/*.mts",
     ],
 
     // Output contents
@@ -85,4 +85,4 @@ export default [
       autoInsertExt("esm"),
     ],
   },
-]
+];

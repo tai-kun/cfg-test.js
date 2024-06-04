@@ -8,7 +8,6 @@
   ],
   "lineWidth": 80,
   "typescript": {
-    "semiColons": "asi",
     "trailingCommas": "onlyMultiLine",
     "singleBodyPosition": "nextLine",
     "arrowFunction.useParentheses": "preferNone"

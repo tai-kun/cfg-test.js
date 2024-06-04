@@ -61,7 +61,7 @@ for example in "$@"; do
         exit 1
     fi
 
-    for transpiler in swc ts-node; do
+    for transpiler in swc ts-node tsx; do
         test_case="$example/$transpiler"
 
         if [ ! -d "examples/$test_case" ]; then
