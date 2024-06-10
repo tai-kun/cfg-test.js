@@ -228,9 +228,14 @@ export function register(options: RegisterOptions | undefined = {}) {
     if (ctx.isEsmMode) {
       ctx.import("cfg-test/dts-loader");
     } else {
-      // CommonJS implementation of `cfg-test/dts-loader`
-      require("node:module")._extensions[".ts"] = () => "";
-      ctx.log.debug(() => ["Registered CJS module cfg-test/dts-loader."]);
+      try {
+        // CommonJS implementation of `cfg-test/dts-loader`
+        require("node:module")._extensions[".ts"] = () => "";
+        ctx.log.debug(() => ["Registered CJS module cfg-test/dts-loader."]);
+      } catch {
+        // The TypeScript loader is already handled by something.
+        ctx.log.warn(() => ["Cannot register CJS module cfg-test/dts-loader."]);
+      }
     }
 
     return;
