@@ -54,7 +54,7 @@
     "dprint": "~0.46.1",
     "esbuild": "~0.21.1",
     "esbuild-plugin-replace": "^1.4.0",
-    "typescript": "~5.4.5"
+    "typescript": "~5.5.2"
   },
   "optionalDependencies": {
     "@swc-node/register": ">=1.6.5",
