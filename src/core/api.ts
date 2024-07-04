@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { sep } from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
-import assert from "./assert";
+import { assert } from "./assert";
 import type { Config } from "./config";
 import { testEnv } from "./define";
 import * as log from "./log";

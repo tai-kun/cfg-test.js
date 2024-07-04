@@ -8,11 +8,13 @@ declare namespace NodeJS {
   }
 }
 
-type CfgTest = typeof import("node:test") & {
-  url?: `file://${string}`;
-  file: string;
-  watch: boolean;
-  assert: (typeof import("cfg-test/assert"))["default"];
-};
+type CfgTest =
+  & typeof import("node:test")
+  & typeof import("./dist/core/assert")
+  & {
+    url?: `file://${string}`;
+    file: string;
+    watch: boolean;
+  };
 
 declare var cfgTest: CfgTest | undefined;

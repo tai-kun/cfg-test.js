@@ -33,11 +33,6 @@
       "import": "./dist/core/api.mjs",
       "require": "./dist/core/api.cjs"
     },
-    "./assert": {
-      "types": "./dist/core/assert.d.ts",
-      "import": "./dist/core/assert.mjs",
-      "require": "./dist/core/assert.cjs"
-    },
     "./define": {
       "types": "./dist/core/define.d.ts",
       "import": "./dist/core/define.mjs",
