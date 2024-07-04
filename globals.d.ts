@@ -12,10 +12,7 @@ type CfgTest = typeof import("node:test") & {
   url?: `file://${string}`;
   file: string;
   watch: boolean;
-  assert: Omit<typeof import("node:assert"), "ok"> & {
-    (value: unknown, message?: string | Error): void;
-    ok(value: unknown, message?: string | Error): void;
-  };
+  assert: (typeof import("cfg-test/assert"))["default"];
 };
 
 declare var cfgTest: CfgTest | undefined;

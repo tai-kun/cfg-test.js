@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { sep } from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
+import assert from "./assert";
 import type { Config } from "./config";
 import { testEnv } from "./define";
 import * as log from "./log";
@@ -118,7 +119,7 @@ export function register(options: RegisterOptions | undefined = {}) {
           return process.env.CFG_TEST_WATCH === "true";
 
         case "assert":
-          return require("node:assert/strict");
+          return assert;
 
         default:
           return Reflect.get(target, p, receiver);

@@ -33,6 +33,11 @@
       "import": "./dist/core/api.mjs",
       "require": "./dist/core/api.cjs"
     },
+    "./assert": {
+      "types": "./dist/core/assert.d.ts",
+      "import": "./dist/core/assert.mjs",
+      "require": "./dist/core/assert.cjs"
+    },
     "./define": {
       "types": "./dist/core/define.d.ts",
       "import": "./dist/core/define.mjs",
@@ -48,13 +53,15 @@
     "./schema.json": "./schema.json"
   },
   "devDependencies": {
-    "@tsconfig/node18": "~18.2.4",
-    "@tsconfig/strictest": "~2.0.5",
-    "@types/node": "~20.14.9",
-    "dprint": "~0.47.0",
-    "esbuild": "~0.23.0",
+    "@tsconfig/node18": "^18.2.4",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^20.14.9",
+    "assert": "^2.1.0",
+    "dprint": "^0.47.0",
+    "esbuild": "^0.23.0",
+    "esbuild-plugin-polyfill-node": "^0.3.0",
     "esbuild-plugin-replace": "^1.4.0",
-    "typescript": "~5.5.3"
+    "typescript": "^5.5.3"
   },
   "repository": {
     "type": "git",
