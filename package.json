@@ -56,10 +56,6 @@
     "esbuild-plugin-replace": "^1.4.0",
     "typescript": "~5.5.2"
   },
-  "optionalDependencies": {
-    "@swc-node/register": ">=1.6.5",
-    "ts-node": "*"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tai-kun/cfg-test.js"
