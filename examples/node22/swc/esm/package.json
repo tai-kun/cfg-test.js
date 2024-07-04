@@ -6,7 +6,7 @@
     "test:unit:ts": "node --import cfg-test/swc --test ./src/**/*.ts"
   },
   "devDependencies": {
-    "@swc-node/register": "^1.8.0",
+    "@swc-node/register": "1.9.0",
     "@types/node": "^20.11.6",
     "cfg-test": "file:../../../..",
     "typescript": "^5.3.3"
