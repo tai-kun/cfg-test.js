@@ -40,8 +40,8 @@ export function parseHookArgs(
 
 export function parseSuiteArgs(
   args:
-    | [string, SuiteFn]
-    | [string, TestOptions, SuiteFn],
+    | [string, (SuiteFn | undefined)?]
+    | [string, TestOptions, (SuiteFn | undefined)?],
   override: TestOptions = {},
   defaults: TestOptions = {},
 ) {
@@ -53,7 +53,11 @@ export function parseSuiteArgs(
       timeout = defaults.timeout,
     },
     fn,
-  ] = args.length === 2 ? [args[0], {}, args[1]] : args;
+  ] = args.length === 1
+    ? [args[0], {}, () => {}]
+    : typeof args[1] === "function"
+    ? [args[0], {}, args[1]]
+    : [args[0], args[1] || {}, args[2] || (() => {})];
   skip = override.skip ?? !!skip;
   only = override.only ?? !!only;
   timeout = override.timeout ?? timeout;

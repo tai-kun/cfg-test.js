@@ -68,8 +68,8 @@ export interface SuiteFunction {
   (name: string, fn: SuiteFn): unknown;
   (name: string, options: TestOptions, fn: SuiteFn): unknown;
   skip: {
-    (name: string, fn: SuiteFn): unknown;
-    (name: string, options: TestOptions, fn: SuiteFn): unknown;
+    (name: string, fn?: SuiteFn): unknown;
+    (name: string, options: TestOptions, fn?: SuiteFn): unknown;
   };
   only: {
     (name: string, fn: SuiteFn): unknown;
@@ -81,8 +81,8 @@ export interface TestFunction {
   (name: string, fn: TestFn): unknown;
   (name: string, options: TestOptions, fn: TestFn): unknown;
   skip: {
-    (name: string, fn: TestFn): unknown;
-    (name: string, options: TestOptions, fn: TestFn): unknown;
+    (name: string, fn?: TestFn): unknown;
+    (name: string, options: TestOptions, fn?: TestFn): unknown;
   };
   only: {
     (name: string, fn: TestFn): unknown;
