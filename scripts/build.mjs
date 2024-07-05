@@ -6,66 +6,70 @@ import options from "../config/build/esbuild.config.mjs";
 
 await Promise.all(options.map(opts => build(opts)));
 await Promise.all(
-  ["cjs", "esm"].map(async format => {
-    await build({
-      // General
+  [
+    "src/core/__wtr.ts",
+  ].flatMap(entrypoint =>
+    ["cjs", "esm"].map(async format => {
+      await build({
+        // General
 
-      bundle: true,
-      platform: "browser",
+        bundle: true,
+        platform: "browser",
 
-      // Output contents
+        // Output contents
 
-      lineLimit: 80,
+        lineLimit: 80,
 
-      // Output location
+        // Output location
 
-      write: true,
-      outdir: "dist",
-      outbase: "src",
+        write: true,
+        outdir: "dist",
+        outbase: "src",
 
-      // Transformation
+        // Transformation
 
-      target: "es2020",
+        target: "es2020",
 
-      // Source maps
+        // Source maps
 
-      sourcemap: "linked",
+        sourcemap: "linked",
 
-      // Input
+        // Input
 
-      entryPoints: [
-        "src/core/assert.ts",
-      ],
+        entryPoints: [
+          entrypoint,
+        ],
 
-      // Output contents
+        // Output contents
 
-      format: format === "esm" ? "esm" : "cjs",
+        format: format === "esm" ? "esm" : "cjs",
 
-      // Output location
+        // Output location
 
-      outExtension: { ".js": format === "esm" ? ".mjs" : ".cjs" },
+        outExtension: { ".js": format === "esm" ? ".mjs" : ".cjs" },
 
-      // Plugins
+        // Plugins
 
-      plugins: [
-        polyfillNode({
-          globals: {
-            buffer: true,
-            global: true,
-            process: true,
-            navigator: true,
-            // The following may be injected by the bundler:
-            __dirname: false,
-            __filename: false,
-          },
-          polyfills: {
-            // Use the assert package instead of the polyfill,
-            // as the polyfill is missing some functionality.
-            assert: false,
-            "assert/strict": false,
-          },
-        }),
-      ],
-    });
-  }),
+        plugins: [
+          polyfillNode({
+            globals: {
+              buffer: true,
+              global: true,
+              process: true,
+              navigator: true,
+              // The following may be injected by the bundler:
+              __dirname: false,
+              __filename: false,
+            },
+            polyfills: {
+              // Use the assert package instead of the polyfill,
+              // as the polyfill is missing some functionality.
+              assert: false,
+              "assert/strict": false,
+            },
+          }),
+        ],
+      });
+    })
+  ),
 );

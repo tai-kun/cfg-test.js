@@ -38,23 +38,39 @@
       "import": "./dist/core/define.mjs",
       "require": "./dist/core/define.cjs"
     },
-    "./dts-loader": {
-      "types": "./dist/core/dts-loader.d.mts",
-      "import": "./dist/core/dts-loader.mjs"
+    "./wtr": {
+      "types": "./dist/core/wtr.d.ts",
+      "import": "./dist/core/wtr.mjs",
+      "require": "./dist/core/wtr.cjs"
     },
     "./globals": {
       "types": "./globals.d.ts"
     },
-    "./schema.json": "./schema.json"
+    "./schema.json": "./schema.json",
+    "./dts-loader": {
+      "types": "./dist/core/dts-loader.d.mts",
+      "import": "./dist/core/dts-loader.mjs"
+    },
+    "./__wtr": {
+      "types": "./dist/core/__wtr.d.ts",
+      "import": "./dist/core/__wtr.mjs",
+      "require": "./dist/core/__wtr.cjs"
+    }
+  },
+  "dependencies": {
+    "@web/dev-server-esbuild": "^1.0.2",
+    "assert": "^2.1.0",
+    "esbuild-plugin-polyfill-node": "^0.3.0",
+    "sinon": "^18.0.0"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.4",
     "@tsconfig/strictest": "^2.0.5",
+    "@types/mocha": "^10.0.7",
     "@types/node": "^20.14.9",
-    "assert": "^2.1.0",
+    "@types/sinon": "^17.0.3",
     "dprint": "^0.47.0",
     "esbuild": "^0.23.0",
-    "esbuild-plugin-polyfill-node": "^0.3.0",
     "esbuild-plugin-replace": "^1.4.0",
     "typescript": "^5.5.3"
   },

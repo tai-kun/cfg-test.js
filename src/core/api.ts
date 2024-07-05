@@ -4,20 +4,31 @@ import { resolve } from "node:path";
 import { sep } from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
-import { assert } from "./assert";
+import * as assert from "./assert";
 import type { Config } from "./config";
 import { testEnv } from "./define";
 import * as log from "./log";
+import * as test from "./test/nodejs";
 
 const ARGV = ["/path/to/node", "/path/to/file"];
 const fileIndex = ARGV.indexOf("/path/to/file");
 
 const cwd = process.cwd();
 const cwdUrl = pathToFileURL(
-  cwd.endsWith(sep) ? sep : (cwd + sep /*not file*/),
+  cwd.endsWith(sep) ? sep : (cwd + sep /* convert to directory */),
 );
 const require = createRequire(cwdUrl);
 const parentUrl = cwdUrl.toString();
+
+export function createCfgTest(
+  options: Omit<CfgTest, keyof typeof test | keyof typeof assert>,
+): CfgTest {
+  return {
+    ...test,
+    ...assert,
+    ...options,
+  };
+}
 
 export interface RegisterOptions {
   readonly argv?: readonly string[] | undefined;
@@ -79,9 +90,13 @@ export function register(options: RegisterOptions | undefined = {}) {
     CFG_TEST_FILE: file,
   };
 
-  if (isEsmMode) {
+  const url = isEsmMode
+    ? pathToFileURL(file).href as string
+    : null;
+
+  if (url) {
     Object.assign(env, {
-      CFG_TEST_URL: pathToFileURL(file),
+      CFG_TEST_URL: url,
     });
   }
 
@@ -104,30 +119,13 @@ export function register(options: RegisterOptions | undefined = {}) {
 
   Object.assign(process.env, env);
 
-  // utils
+  // globals
 
-  const cfgTest: CfgTest = new Proxy(require("node:test"), {
-    get(target, p, receiver) {
-      switch (p) {
-        case "url":
-          return process.env.CFG_TEST_URL;
-
-        case "file":
-          return process.env.CFG_TEST_FILE;
-
-        case "watch":
-          return process.env.CFG_TEST_WATCH === "true";
-
-        case "assert":
-          return assert;
-
-        default:
-          return Reflect.get(target, p, receiver);
-      }
-    },
+  global.cfgTest = createCfgTest({
+    ...(url ? { url } : {}),
+    file,
+    watch: isWatchMode,
   });
-
-  global.cfgTest = cfgTest;
 
   // config
 
