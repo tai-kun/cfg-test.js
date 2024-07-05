@@ -47,9 +47,9 @@
       "types": "./globals.d.ts"
     },
     "./schema.json": "./schema.json",
-    "./dts-loader": {
-      "types": "./dist/core/dts-loader.d.mts",
-      "import": "./dist/core/dts-loader.mjs"
+    "./__dts": {
+      "types": "./dist/core/__dts.d.mts",
+      "import": "./dist/core/__dts.mjs"
     },
     "./__wtr": {
       "types": "./dist/core/__wtr.d.ts",

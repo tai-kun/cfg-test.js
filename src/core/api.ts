@@ -225,15 +225,15 @@ export function register(options: RegisterOptions | undefined = {}) {
 
   if (isDTsFile) {
     if (ctx.isEsmMode) {
-      ctx.import("cfg-test/dts-loader");
+      ctx.import("cfg-test/__dts");
     } else {
       try {
-        // CommonJS implementation of `cfg-test/dts-loader`
+        // CommonJS implementation of `cfg-test/__dts`
         require("node:module")._extensions[".ts"] = () => "";
-        ctx.log.debug(() => ["Registered CJS module cfg-test/dts-loader."]);
+        ctx.log.debug(() => ["Registered CJS module cfg-test/__dts."]);
       } catch {
         // The TypeScript loader is already handled by something.
-        ctx.log.warn(() => ["Cannot register CJS module cfg-test/dts-loader."]);
+        ctx.log.warn(() => ["Cannot register CJS module cfg-test/__dts."]);
       }
     }
 
