@@ -155,8 +155,8 @@ export const describe: SuiteFunction = Object.assign(
   {
     skip(
       ...args:
-        | [string, SuiteFn]
-        | [string, TestOptions, SuiteFn]
+        | [string, (SuiteFn | undefined)?]
+        | [string, TestOptions, (SuiteFn | undefined)?]
     ) {
       const [name, suiteFn] = parseSuiteArgs(args, { skip: true });
 
@@ -231,8 +231,8 @@ export const test: TestFunction = Object.assign(
   {
     skip(
       ...args:
-        | [string, TestFn]
-        | [string, TestOptions, TestFn]
+        | [string, (TestFn | undefined)?]
+        | [string, TestOptions, (TestFn | undefined)?]
     ) {
       const [name, testFn, options] = parseTestArgs(args, { skip: true });
       const title = typeof options.skip === "string"

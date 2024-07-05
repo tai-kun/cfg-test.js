@@ -91,8 +91,8 @@ export function parseSuiteArgs(
 
 export function parseTestArgs(
   args:
-    | [string, TestFn]
-    | [string, TestOptions, TestFn],
+    | [string, (TestFn | undefined)?]
+    | [string, TestOptions, (TestFn | undefined)?],
   override: TestOptions = {},
   defaults: TestOptions = {},
 ) {
@@ -104,7 +104,11 @@ export function parseTestArgs(
       timeout = defaults.timeout,
     },
     fn,
-  ] = args.length === 2 ? [args[0], {}, args[1]] : args;
+  ] = args.length === 1
+    ? [args[0], {}, () => {}]
+    : typeof args[1] === "function"
+    ? [args[0], {}, args[1]]
+    : [args[0], args[1] || {}, args[2] || (() => {})];
   skip = override.skip ?? !!skip;
   only = override.only ?? !!only;
   timeout = override.timeout ?? timeout;
