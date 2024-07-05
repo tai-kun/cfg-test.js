@@ -20,14 +20,31 @@ const cwdUrl = pathToFileURL(
 const require = createRequire(cwdUrl);
 const parentUrl = cwdUrl.toString();
 
-export function createCfgTest(
-  options: Omit<CfgTest, keyof typeof test | keyof typeof assert>,
-): CfgTest {
+export interface CreateCfgTestOptions
+  extends Omit<CfgTest, keyof typeof test | keyof typeof assert>
+{}
+
+export function createCfgTest(options: CreateCfgTestOptions): CfgTest {
   return {
     ...test,
     ...assert,
     ...options,
   };
+}
+
+export function readConfigFile(search: readonly string[]): Config | undefined {
+  let cfg: Config | undefined;
+
+  for (const id of search) {
+    const cfgPath = id.endsWith(".json") ? id : `${id}.json`;
+
+    if (existsSync(cfgPath)) {
+      cfg = JSON.parse(readFileSync(cfgPath, "utf8"));
+      break;
+    }
+  }
+
+  return cfg;
 }
 
 export interface RegisterOptions {
@@ -129,16 +146,7 @@ export function register(options: RegisterOptions | undefined = {}) {
 
   // config
 
-  let cfg: Config | undefined;
-
-  for (const id of process.env.CFG_TEST_CFG!.split(",")) {
-    const cfgPath = id.endsWith(".json") ? id : `${id}.json`;
-
-    if (existsSync(cfgPath)) {
-      cfg = JSON.parse(readFileSync(cfgPath, "utf8"));
-      break;
-    }
-  }
+  const cfg = readConfigFile(process.env.CFG_TEST_CFG!.split(","));
 
   if (cfg && cfg.env) {
     for (const [key, value] of Object.entries(cfg.env)) {
