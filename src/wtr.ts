@@ -38,8 +38,8 @@ const omitOptionKeys = [
 export interface CfgTestPluginOptions
   extends Omit<BuildOptions, (typeof omitOptionKeys)[number]>
 {
-  includes: readonly string[];
-  excludes?: readonly string[] | undefined;
+  include: readonly string[];
+  exclude?: readonly string[] | undefined;
 }
 
 class CfgTestPlugin implements Plugin {
@@ -47,15 +47,15 @@ class CfgTestPlugin implements Plugin {
 
   #config: DevServerCoreConfig = undefined as any;
   #logger: Logger = undefined as any;
-  #esbuildConfig: Omit<CfgTestPluginOptions, "includes" | "excludes">;
-  #includes: readonly string[];
-  #excludes: readonly string[];
+  #esbuildConfig: Omit<CfgTestPluginOptions, "include" | "exclude">;
+  #include: readonly string[];
+  #exclude: readonly string[];
   #isBundleTarget: (path: string) => boolean = undefined as any;
 
   constructor(options: CfgTestPluginOptions) {
     const {
-      includes,
-      excludes = [],
+      include,
+      exclude = [],
       ...esbuildConfig
     } = options;
     omitOptionKeys.forEach(key => {
@@ -84,16 +84,16 @@ class CfgTestPlugin implements Plugin {
         ...esbuildConfig.loader,
       },
     };
-    this.#includes = [...includes];
-    this.#excludes = [...excludes];
+    this.#include = [...include];
+    this.#exclude = [...exclude];
   }
 
   serverStart(args: ServerStartArgs) {
     this.#config = args.config;
     this.#logger = args.logger;
-    const iFilters = this.#includes
+    const iFilters = this.#include
       .map(i => minimatch.filter(path.posix.join(args.config.rootDir, i)));
-    const eFilters = this.#excludes
+    const eFilters = this.#exclude
       .map(e => minimatch.filter(path.posix.join(args.config.rootDir, e)));
     this.#isBundleTarget = p =>
       iFilters.some(i => i(p))

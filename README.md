@@ -365,7 +365,7 @@ export default {
   nodeResolve: true,
   plugins: [
     cfgTestPlugin({
-      includes: ["./src/**/*"],
+      include: ["./src/**/*"],
     }),
   ],
   browsers: [
