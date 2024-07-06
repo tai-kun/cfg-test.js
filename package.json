@@ -18,6 +18,11 @@
       "import": "./dist/tsx.mjs",
       "require": "./dist/tsx.cjs"
     },
+    "./wtr": {
+      "types": "./dist/wtr.d.ts",
+      "import": "./dist/wtr.mjs",
+      "require": "./dist/wtr.cjs"
+    },
     "./swc": {
       "types": "./dist/swc.d.ts",
       "import": "./dist/swc.mjs",
@@ -38,11 +43,6 @@
       "import": "./dist/core/define.mjs",
       "require": "./dist/core/define.cjs"
     },
-    "./wtr": {
-      "types": "./dist/core/wtr.d.ts",
-      "import": "./dist/core/wtr.mjs",
-      "require": "./dist/core/wtr.cjs"
-    },
     "./globals": {
       "types": "./globals.d.ts"
     },
@@ -59,9 +59,9 @@
   },
   "dependencies": {
     "@types/sinon": "^17.0.3",
-    "@web/dev-server-esbuild": "^1.0.2",
     "assert": "^2.1.0",
     "esbuild-plugin-polyfill-node": "^0.3.0",
+    "minimatch": "^9.0.5",
     "sinon": "^18.0.0"
   },
   "devDependencies": {
