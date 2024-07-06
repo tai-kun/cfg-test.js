@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "scripts": {
+    "postinstall": "playwright install --with-deps chromium",
+    "test:type": "tsc --noEmit",
+    "test:unit:js": "exit 0",
+    "test:unit:ts": "wtr ./src/**/*.tsx"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@web/test-runner": "latest",
+    "@web/test-runner-playwright": "latest",
+    "cfg-test": "file:../../../..",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "latest"
+  }
+}

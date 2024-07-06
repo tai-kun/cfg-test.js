@@ -17,6 +17,7 @@ As a general recommendation, I suggest using [`tsx`](https://github.com/privaten
   - [Rollup](#rollup)
   - [Webpack](#webpack)
 - [Configuration (Optional)](#configuration)
+- [web-test-runner (Experimental)](#web-test-runner)
 
 ## Requirements
 
@@ -29,6 +30,8 @@ npm i -D cfg-test tsx typescript
 ```
 
 ## Setup
+
+See: [examples/readme/tsx/esm](examples/readme/tsx/esm)
 
 ```console
 /your-project
@@ -250,4 +253,138 @@ Specify the path to the configuration file in the environment variable CFG_TEST_
     "./path/to/import.js"
   ]
 }
+```
+
+## web-test-runner
+
+See: [examples/readme/wtr/esm](examples/readme/wtr/esm)
+
+```bash
+npm i -D cfg-test typescript @web/test-runner @web/test-runner-playwright react react-dom @types/react @types/react-dom
+```
+
+```console
+/your-project
+├─ src
+│  ├─ App.tsx
+│  └─ env.d.ts
+├─ package.json
+├─ tsconfig.json
+└─ web-test-runner.config.js
+```
+
+```tsx
+// src/App.tsx
+
+import React from "react";
+
+// the implementation
+export function App() {
+  return <h1>Hello</h1>;
+}
+
+// in-source test suites
+if (cfgTest && cfgTest.url === import.meta.url) {
+  const { createRoot } = await import("react-dom/client");
+  const { flushSync } = await import("react-dom");
+  const { assert, describe, test } = cfgTest;
+
+  function renderToString(node: any): string {
+    const div = document.createElement("div");
+    const root = createRoot(div);
+    flushSync(() => {
+      root.render(node);
+    });
+    const string = div.innerHTML;
+    root.unmount();
+
+    return string;
+  }
+
+  describe("App", () => {
+    test("can be rendered", () => {
+      assert.equal(renderToString(<App />), "<h1>Hello</h1>");
+    });
+  });
+}
+```
+
+```ts
+// src/env.d.ts
+
+/// <reference types="cfg-test/globals" />
+```
+
+```json5
+// package.json
+
+{
+  "type": "module",
+  "scripts": {
+    "postinstall": "playwright install --with-deps chromium",
+    "test": "wtr ./src/**/*.tsx"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@web/test-runner": "latest",
+    "@web/test-runner-playwright": "latest",
+    "cfg-test": "file:../../../..",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "latest"
+  }
+}
+```
+
+```json5
+// tsconfig.json
+
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsxdev",
+    "lib": ["DOM"]
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
+```
+
+```js
+// web-test-runner.config.js
+
+import { cfgTestPlugin } from "cfg-test/wtr";
+import { playwrightLauncher } from "@web/test-runner-playwright";
+import { defaultReporter, summaryReporter } from "@web/test-runner";
+
+export default {
+  nodeResolve: true,
+  plugins: [
+    cfgTestPlugin({
+      includes: ["./src/**/*"],
+    }),
+  ],
+  browsers: [
+    playwrightLauncher({
+      product: "chromium",
+    }),
+  ],
+  reporters: [
+    defaultReporter({
+      reportTestResults: true,
+      reportTestProgress: false,
+    }),
+    summaryReporter(),
+  ],
+};
+```
+
+Then you can start to test.
+
+```bash
+npm test
 ```
