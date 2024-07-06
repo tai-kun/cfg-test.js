@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@types/sinon": "^17.0.3",
+    "@web/dev-server-core": "^0.7.2",
     "assert": "^2.1.0",
     "esbuild-plugin-polyfill-node": "^0.3.0",
     "minimatch": "^9.0.5",
