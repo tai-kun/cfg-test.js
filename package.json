@@ -62,7 +62,7 @@
     "@web/dev-server-core": "^0.7.2",
     "assert": "^2.1.0",
     "esbuild-plugin-polyfill-node": "^0.3.0",
-    "minimatch": "^9.0.5",
+    "minimatch": "^10.0.0",
     "sinon": "^18.0.0"
   },
   "devDependencies": {
