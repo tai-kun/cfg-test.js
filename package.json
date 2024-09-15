@@ -63,7 +63,7 @@
     "assert": "^2.1.0",
     "esbuild-plugin-polyfill-node": "^0.3.0",
     "minimatch": "^10.0.1",
-    "sinon": "^18.0.0"
+    "sinon": "^19.0.2"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.4",
